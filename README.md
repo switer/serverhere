@@ -8,6 +8,19 @@ Init express in current director as a convenient static server.
 npm install serverhere -g
 ```
 
+## Example
+
+Following command create a server 
+- that watch `./public` for livereload 
+- and enable `gzip` 
+- and use `jade` as view engine 
+- and default set `port` to 2014 
+- and use `./public` as static folder
+
+```bash
+serverhere --watch public --compress -e jade --port 2014 public
+```
+
 ## Usage
 ```cli
  Usage: serverhere [options] <path>
@@ -26,9 +39,3 @@ npm install serverhere -g
    -w --watch <dir>    watch a dir and reload browser when files changed
 ```
 
-## Example
-This create a server that watch `./public` for livereload an enable `gzip` and use `jade` as view engine 
-and default set `port` to 2014 and use `./public` as static folder
-```bash
-serverhere --watch public --compress -e jade --port 2014 public
-```
