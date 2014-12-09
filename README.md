@@ -1,8 +1,9 @@
-servehere
+serverhere
 =========
 ![logo](http://switer.qiniudn.com/assitant.png)
 
-Init express in current director as a convenient static server.
+Create an express static server in current director with some options, includes gzip/livereload/view engine/port.
+If you thinks another something is useful and helpful, please tell me. 
 
 ## Installing
 ```bash
