@@ -25,3 +25,10 @@ npm install serverhere -g
    -v --views <path>   views director path, default to "views"
    -w --watch <dir>    watch a dir and reload browser when files changed
 ```
+
+## Example
+This create a server that watch `./public` for livereload an enable `gzip` and use `jade` as view engine 
+and default set `port` to 2014 and use `./public` as static folder
+```bash
+serverhere --watch public --compress -e jade --port 2014 public
+```
