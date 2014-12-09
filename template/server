@@ -1,8 +1,21 @@
 'use strict';
 
 var express = require('express')
+var path = require('path')
 var app = express()
-
+var colors = require('colors')
+<% if (watch) {%>
+/**
+ *  LiveReload
+ **/
+var livereload = require('express-livereload')
+livereload(app, {
+    watchDir: path.join(__dirname, '<%- watch || "public" %>')
+})
+app.get('/livereload', function (req, res) {
+    res.send("document.write('<script src=\"http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js\"></' + 'script>')")
+})
+<% } %>
 <% if(compress){ %>
 /**
  *  midllewares
@@ -10,22 +23,27 @@ var app = express()
 var compression = require('compression')
 app.use(compression())
 <% } %>
-<% if(view){ %>
+<% if(engine){ %>
 /**
  *  views engine
  **/
-app.set('views', path.join(__dirname, '<%- views %>'));
-app.set('view engine', '<%= view %>');
+app.set('views', path.join(__dirname, '<%- views %>'))
+app.set('view engine', '<%= engine %>')
 <% } %>
+
 /**
  *  static folder
  **/
-app.use(express.static(path.join(__dirname, '<%- public %>')));
+app.use(express.static(path.join(__dirname, '<%- public %>')))
 
 /**
  *  server and port
  **/
 var port = process.env.PORT || <%= port %>
 app.listen(port, function () {
-    console.log('Server is listen on port', port);
+    console.log('Server is listen on port', port)
+    <% if (watch) {%>
+    console.log('\nPlease inject the following codes to your html file for livereload'.yellow.gray)
+    console.log('\n    <scirpt src="/livereload"></scirpt>'.gray);
+    <% } %>
 })

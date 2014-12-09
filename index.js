@@ -2,7 +2,6 @@
 var fs = require('fs')
 var Path = require('path')
 var ejs = require('ejs')
-var handlebars = require('handlebars')
 var templates = {
     "server": fs.readFileSync(Path.join(__dirname, './template/server'), 'utf-8'),
     "package": fs.readFileSync(Path.join(__dirname, './template/package'), 'utf-8')
@@ -10,21 +9,26 @@ var templates = {
 
 module.exports = function(path, options) {
     options.port = options.port || 1024
-    if (options.view)!options.views && (options.views = 'views')
+    if (options.engine)!options.views && (options.views = 'views')
 
     /**
      *  custom set dependencies
      **/
-    var deps = ''
-    if (options.compression) {
-        deps += '"compression": "*"'
+    var deps = '"express": "*"'
+    var spliter = ',\n        '
+
+    // colors
+    deps += spliter + '"colors":"*"'
+    if (options.compress) {
+        deps += spliter + '"compression": "*"'
     }
-    if (options.view) {
-        deps && (deps += ',')
-        deps += ejs.render('"<%= view %>": "*"', options)
+    if (options.engine) {
+        deps += spliter + ejs.render('"<%= engine %>": "*"', options)
+    }
+    if (options.watch) {
+        deps += spliter + '"express-livereload": "*"'
     }
     options.deps = deps
-
 
     var serverFile = ejs.render(templates.server, options)
     var packageFile = ejs.render(templates.package, options)

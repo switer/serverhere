@@ -8,12 +8,13 @@ program
   .usage('[options] <path>\n\n         (path default is ".")\n')
   .option('-p --port <port>', 'server listen port, default to 1024')
   .option('-c --compress', 'enable gzip')
-  .option('-v --view <engine>', "view's engine ejs/jade, default not set")
-  .option('-V --views <path>', 'views director path, default to "views"')
+  .option('-e --engine <type>', "view's engine ejs/jade, default not set")
+  .option('-v --views <path>', 'views director path, default to "views"')
+  .option('-w --watch <dir>', 'watch a dir and reload browser when files changed')
   .parse(process.argv)
 
 var options = monkeyPicks(program, 
-    'view', 'views', 'port', 'compress'
+    'engine', 'views', 'port', 'compress', 'watch'
 )
 options['public'] = program.args[0] || '.'
 serverhere(program.args[0] || '.', options)
