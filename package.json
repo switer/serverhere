@@ -1,6 +1,6 @@
 {
   "name": "serverhere",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Init express in current director as a convenient static server. ",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/switer/serverhere/issues"
   },
-  "homepage": "https://github.com/switer/serverhere"
+  "homepage": "https://github.com/switer/serverhere",
+  "devDependencies": {
+    "commander": "^2.5.0",
+    "ejs": "^1.0.0",
+    "handlebars": "^2.0.0"
+  }
 }

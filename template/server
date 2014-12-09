@@ -1,0 +1,31 @@
+'use strict';
+
+var express = require('express')
+var app = express()
+
+<% if(compress){ %>
+/**
+ *  midllewares
+ **/
+var compression = require('compression')
+app.use(compression())
+<% } %>
+<% if(view){ %>
+/**
+ *  views engine
+ **/
+app.set('views', path.join(__dirname, '<%- views %>'));
+app.set('view engine', '<%= view %>');
+<% } %>
+/**
+ *  static folder
+ **/
+app.use(express.static(path.join(__dirname, '<%- public %>')));
+
+/**
+ *  server and port
+ **/
+var port = process.env.PORT || <%= port %>
+app.listen(port, function () {
+    console.log('Server is listen on port', port);
+})
