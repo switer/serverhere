@@ -22,6 +22,14 @@ Following command create a server
 ```bash
 serverhere --watch public --compress -e jade --port 2014 public
 ```
+Before running, you need to install some dependencies:
+```
+npm install
+```
+Then run command to start your server:
+```
+npm start
+```
 
 ## Usage
 ```cli
