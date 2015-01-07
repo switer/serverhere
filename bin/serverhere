@@ -11,10 +11,11 @@ program
   .option('-e --engine <type>', "view's engine ejs/jade/hogan or any others, default not set")
   .option('-v --views <path>', 'views director path, default to "views"')
   .option('-w --watch <dir>', 'watch a dir and reload browser when files changed')
+  .option('-i --ignore <files>', 'watch ignore file/dir and using "," for multiple split')
   .parse(process.argv)
 
 var options = monkeyPicks(program, 
-    'engine', 'views', 'port', 'compress', 'watch'
+    'engine', 'views', 'port', 'compress', 'watch', 'ignore'
 )
 options['public'] = program.args[0] || '.'
 serverhere(program.args[0] || '.', options)

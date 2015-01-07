@@ -10,6 +10,9 @@ var colors = require('colors')
  **/
 var livereload = require('express-livereload')
 livereload(app, {
+    <% if (ignore) {%>
+    exclutions: ['<%- ignore.split(',').join("', '") %>'],
+    <% } %>
     watchDir: path.join(__dirname, '<%- watch || "public" %>')
 })
 app.get('/livereload', function (req, res) {
@@ -41,9 +44,8 @@ app.use(express.static(path.join(__dirname, '<%- public %>')))
  **/
 var port = process.env.PORT || <%= port %>
 app.listen(port, function () {
-    console.log('Server is listen on port', port)
+    console.log('Server is listen on port', String(port).blue)
     <% if (watch) {%>
-    console.log('\nPlease inject the following codes to your html file for livereload'.yellow.gray)
-    console.log('\n    <scirpt src="/livereload"></scirpt>'.gray);
+    console.log('[Put livereload script into HTML]:  '.white.gray + '<script src="/livereload"></script>'.gray)
     <% } %>
 })
