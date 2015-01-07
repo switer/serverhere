@@ -11,7 +11,7 @@ program
   .option('-e --engine <type>', "view's engine ejs/jade/hogan or any others, default not set")
   .option('-v --views <path>', 'views director path, default to "views"')
   .option('-w --watch <dir>', 'watch a dir and reload browser when files changed')
-  .option('-i --ignore <files>', 'watch ignore file/dir and using "," for multiple split')
+  .option('-i --ignore <files>', 'unwatch file/dir under the watch dir, use "," as separator of multiple file')
   .parse(process.argv)
 
 var options = monkeyPicks(program, 

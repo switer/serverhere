@@ -11,7 +11,7 @@ var colors = require('colors')
 var livereload = require('express-livereload')
 livereload(app, {
     <% if (ignore) {%>
-    exclutions: ['<%- ignore.split(',').join("', '") %>'],
+    exclusions: ['<%- ignore.split(',').join("', '") %>'],
     <% } %>
     watchDir: path.join(__dirname, '<%- watch || "public" %>')
 })
