@@ -24,32 +24,33 @@ module.exports = function(path, options) {
      *  set package.json
      */
     var packageJSON
-    try {
-        if (existPackage) {
+    if (existPackage) {
+        try {
             packageJSON = (packageJSON = fs.readFileSync('package.json', 'utf-8')) ? JSON.parse(packageJSON):{}
-        } else {
-            packageJSON = {}
+        } catch (e) {
+            console.log('Your "package.json" file has syntax error : ' + e)
+            return process.exit(1)
         }
-    } catch (e) {
-        console.log('Your "package.json" file has syntax error : ' + e);
-        return process.exit(1)
+    } else {
+        packageJSON = {}
     }
-    if (!packageJSON.name) packageJSON.name = Path.basename(process.cwd()) || ''
-    !packageJSON.scripts && (packageJSON.scripts = {})
-    packageJSON.scripts.start = 'node server'
 
-    !packageJSON.dependencies && (packageJSON.dependencies = {})
+    packageJSON.name === undefined && (packageJSON.name = Path.basename(process.cwd()) || '')
+    packageJSON.scripts = packageJSON.scripts || {}
+    packageJSON.scripts.start = 'node server'
+    packageJSON.dependencies = packageJSON.dependencies || {}
 
     // custom dependencies
     var deps = ['express', 'colors']
     switch (true) {
-        case !!options.compress: deps.push('compression');;
-        case !!options.engine: deps.push(options.engine);;
-        case !!options.watch: deps.push('express-livereload');;
+        case !!options.compress: deps.push('compression')
+        case !!options.engine: deps.push(options.engine)
+        case !!options.watch: deps.push('express-livereload')
     }
     deps.forEach(function (dep) {
         packageJSON.dependencies[dep] = '*'
     })
+    
     fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, '\t'))
 
     /**
