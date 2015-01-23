@@ -9,6 +9,12 @@ If you thinks another something is useful and helpful, please tell me.
 ```bash
 npm install serverhere -g
 ```
+or
+```bash
+npm install ser -g
+```
+
+**ser** is a shortcur alisa for **serverhere**
 
 ## Example
 
