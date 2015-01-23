@@ -1,6 +1,6 @@
 {
   "name": "serverhere",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Init express in current director as a convenient static server. ",
   "main": "index.js",
   "scripts": {
