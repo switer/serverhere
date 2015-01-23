@@ -14,7 +14,7 @@ or
 npm install ser -g
 ```
 
-**ser** is a shortcur alisa for **serverhere**
+**ser** is a shortcut alisa for **serverhere**
 
 ## Example
 
