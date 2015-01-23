@@ -16,7 +16,7 @@ module.exports = function(path, options) {
 
     var serverPath = 'server.js'
     var packagePath = 'package.json'
-    var IndexPath = 'index.html'
+    var IndexPath = Path.join(options.public, 'index.html')
     var serverFile = ejs.render(templates.server, options)
     var existServer = fs.existsSync(serverPath)
     var existPackage = fs.existsSync(packagePath)
@@ -28,9 +28,9 @@ module.exports = function(path, options) {
      * write static folder and default index.html
      */
     if(options.public !== '.') mkdirp.sync(options.public);
-    
+
     if(!existIndex){
-        fs.writeFileSync(options.public + '/index.html', templates.index, 'utf-8')
+        fs.writeFileSync(IndexPath, templates.index, 'utf-8')
         console.log('Done, index.html is created!')   
     }
     
