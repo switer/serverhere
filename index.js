@@ -22,11 +22,14 @@ module.exports = function(path, options) {
     var existIndex = fs.existsSync(IndexPath)
     var questions = []
     var writeServer = true
+
     /**
-     * write index.html    
+     * write static folder and default index.html
      */
+    if(options.public !== '.') fs.mkdirSync(options.public);
+
     if(!existIndex){
-        fs.writeFileSync('index.html', templates.index, 'utf-8')
+        fs.writeFileSync(options.public + '/index.html', templates.index, 'utf-8')
         console.log('Done, index.html is created!')
     }
     /**
