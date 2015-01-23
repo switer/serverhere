@@ -3,8 +3,10 @@ var fs = require('fs')
 var Path = require('path')
 var ejs = require('ejs')
 var inquirer = require('inquirer')
+var mkdirp = require('mkdirp')
 var templates = {
-    "server": fs.readFileSync(Path.join(__dirname, './template/server'), 'utf-8')
+    "server": fs.readFileSync(Path.join(__dirname, './template/server'), 'utf-8'),
+    "index": fs.readFileSync(Path.join(__dirname, './template/index.html'), 'utf-8'),
 }
 
 module.exports = function(path, options) {
@@ -14,11 +16,23 @@ module.exports = function(path, options) {
 
     var serverPath = 'server.js'
     var packagePath = 'package.json'
+    var IndexPath = Path.join(options.public, 'index.html')
     var serverFile = ejs.render(templates.server, options)
     var existServer = fs.existsSync(serverPath)
     var existPackage = fs.existsSync(packagePath)
+    var existIndex = fs.existsSync(IndexPath)
     var questions = []
     var writeServer = true
+
+    /**
+     * write static folder and default index.html
+     */
+    if(options.public !== '.') mkdirp.sync(options.public);
+
+    if(!existIndex){
+        fs.writeFileSync(IndexPath, templates.index, 'utf-8')
+        console.log('Done, index.html is created!')   
+    }
     
     /**
      *  set package.json
