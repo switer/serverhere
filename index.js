@@ -3,6 +3,7 @@ var fs = require('fs')
 var Path = require('path')
 var ejs = require('ejs')
 var inquirer = require('inquirer')
+var mkdirp = require('mkdirp')
 var templates = {
     "server": fs.readFileSync(Path.join(__dirname, './template/server'), 'utf-8'),
     "index": fs.readFileSync(Path.join(__dirname, './template/index.html'), 'utf-8'),
@@ -26,12 +27,13 @@ module.exports = function(path, options) {
     /**
      * write static folder and default index.html
      */
-    if(options.public !== '.') fs.mkdirSync(options.public);
-
+    if(options.public !== '.') mkdirp.sync(options.public);
+    
     if(!existIndex){
         fs.writeFileSync(options.public + '/index.html', templates.index, 'utf-8')
-        console.log('Done, index.html is created!')
+        console.log('Done, index.html is created!')   
     }
+    
     /**
      *  set package.json
      */
