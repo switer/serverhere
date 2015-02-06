@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Hello server here</title>
+	<title><%= cwd %></title>
+    <% if (watch) {%><script src="/livereload"></script><% } %>
 </head>
 <body>
-	<h1>Hello server here</h1>
+	<h1>It works !</h1>
 </body>
 </html>
