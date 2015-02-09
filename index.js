@@ -69,6 +69,8 @@ module.exports = function(path, options) {
     var questions = []
     var writeServer = true
     var existServer = fs.existsSync(serverPath)
+    var serverFile = ejs.render(templates.server, options)
+
     if (existServer) {
         questions.push({
             type: "confirm",
@@ -83,8 +85,6 @@ module.exports = function(path, options) {
     } else {
         writeServerFile()
     }
-
-    var serverFile = ejs.render(templates.server, options)
 
     function writeServerFile() {
         if (writeServer) {
